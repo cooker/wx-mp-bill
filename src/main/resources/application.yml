@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: bill
+  datasource:
+    url: jdbc:mysql://localhost:3306/bill?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+
+# 定时任务：账单生成 00:10；账单逾期 01:00
+# 逾期利息：超过还款日 3 天后按日计息，默认日利率 0.05%（0.0005）
+bill:
+  schedule:
+    bill-generate-cron: "0 10 0 * * ?"
+    bill-overdue-cron: "0 0 1 * * ?"
+  default-overdue-daily-rate: 0.0005
+
+server:
+  port: 8080
