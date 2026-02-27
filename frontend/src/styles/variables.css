@@ -1,0 +1,19 @@
+:root {
+  --color-bg: #f5f6f8;
+  --color-surface: #fff;
+  --color-text: #1a1d21;
+  --color-text-muted: #64748b;
+  --color-primary: #0f172a;
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+  --color-error: #b91c1c;
+  --color-error-bg: #fef2f2;
+  --color-success: #059669;
+  --color-success-bg: #f0fdf4;
+  --color-warning: #92400e;
+  --color-warning-bg: #fef3c7;
+  --radius: 6px;
+  --radius-lg: 10px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --font-sans: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
