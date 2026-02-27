@@ -1,8 +1,8 @@
 package com.github.cooker.bill.interfaces;
 
-import com.github.cooker.bill.application.BillCommandService;
-import com.github.cooker.bill.application.BillQueryService;
-import com.github.cooker.bill.application.BillRepayService;
+import com.github.cooker.bill.application.bill.BillCommandService;
+import com.github.cooker.bill.application.bill.BillQueryService;
+import com.github.cooker.bill.application.bill.BillRepayService;
 import com.github.cooker.bill.application.dto.BillDTO;
 import com.github.cooker.bill.application.dto.InstallmentScheduleItemDTO;
 import com.github.cooker.bill.application.dto.PageResult;

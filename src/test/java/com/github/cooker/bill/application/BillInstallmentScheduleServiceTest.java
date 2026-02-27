@@ -1,5 +1,6 @@
 package com.github.cooker.bill.application;
 
+import com.github.cooker.bill.application.bill.BillInstallmentScheduleService;
 import com.github.cooker.bill.domain.BillInstallmentSchedule;
 import com.github.cooker.bill.domain.BillInstallmentScheduleRepository;
 import com.github.cooker.bill.domain.ProductRepository;

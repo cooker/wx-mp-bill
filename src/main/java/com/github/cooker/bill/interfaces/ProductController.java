@@ -1,7 +1,7 @@
 package com.github.cooker.bill.interfaces;
 
-import com.github.cooker.bill.application.ProductCommandService;
-import com.github.cooker.bill.application.ProductQueryService;
+import com.github.cooker.bill.application.product.ProductCommandService;
+import com.github.cooker.bill.application.product.ProductQueryService;
 import com.github.cooker.bill.application.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

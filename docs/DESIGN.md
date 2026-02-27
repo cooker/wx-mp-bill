@@ -95,7 +95,30 @@
 - POST /api/bills/{id}/repay — 部分/全额还款（动态更新 paid_amount）
 - 定时任务：每日生成到期账单；每日标记逾期
 
-## 4. 风险与对策
+## 4. 领域驱动设计（DDD）分层与包结构
+
+### 4.1 分层职责
+
+| 分层 | 包 | 职责 |
+|------|-----|------|
+| **领域层** | `domain` | 聚合根、实体、值对象、仓储接口；无依赖框架与基础设施。 |
+| **领域服务** | `domain.service` | 无状态纯计算（如逾期利息），不依赖仓储与配置。 |
+| **应用层** | `application.bill` / `application.order` / `application.product` | 按限界上下文分包；编排用例、调用领域与仓储，DTO 转换。 |
+| **共享** | `application.dto` | 跨上下文 DTO（BillDTO、OrderDTO、ProductDTO、PageResult 等）。 |
+| **基础设施层** | `infrastructure.persistence` | 仓储实现、PO、Mapper；依赖领域接口。 |
+| **接口层** | `interfaces` | REST 控制器，仅依赖应用层服务。 |
+
+### 4.2 限界上下文与应用服务
+
+- **账单上下文** `application.bill`：BillRepayService、BillQueryService、BillCommandService、BillInstallmentScheduleService、BillGenerateService、BillOverdueService、OverdueInterestService；定时任务 BillGenerateScheduler、BillOverdueScheduler。逾期利息计算由领域服务 `OverdueInterestCalculator` 提供纯计算，应用层 `OverdueInterestService` 注入默认日利率并委托。
+- **订单上下文** `application.order`：OrderCreateService、OrderRefundService、OrderQueryService。创建订单时若新建分期账单会调用 `BillInstallmentScheduleService.generateForBill`（跨上下文依赖）。
+- **产品上下文** `application.product`：ProductCommandService、ProductQueryService。
+
+### 4.3 领域服务
+
+- **OverdueInterestCalculator**（`domain.service`）：静态方法 `computeBillOverdueInterest(Bill, LocalDate asOf, BigDecimal dailyRate)`、`computePeriodOverdueInterest(...)`，无 Spring 依赖，便于单测与复用。
+
+## 5. 风险与对策
 
 - 金额精度：BigDecimal + DECIMAL(14,2)
 - 并发：账单更新时按 id 更新，避免重复还款
